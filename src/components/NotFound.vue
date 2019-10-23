@@ -1,7 +1,7 @@
 <template>
   <div id="root">
     <div class="hello">
-      <p>Hello World</p>
+      <p>Page Not Found</p>
     </div>
   </div>
 </template>

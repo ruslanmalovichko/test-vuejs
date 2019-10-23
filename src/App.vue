@@ -1,23 +1,34 @@
-<template>
-  <div id="app">
-    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
-</template>
-
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import Posts from './components/Posts.vue'
+import NotFound from './components/NotFound.vue'
+
+var routes = {
+  '/helloworld': HelloWorld,
+  '/posts': Posts
+}
 
 export default {
   name: 'app',
+  data: function () {
+    return {
+      currentRoute: window.location.pathname
+    }
+  },
+  computed: {
+    ViewComponent () {
+      return routes[this.currentRoute] || NotFound
+    }
+  },
   components: {
-    HelloWorld
-  }
+    HelloWorld, Posts, NotFound
+  },
+  render (h) { return h(this.ViewComponent) }
 }
 </script>
 
 <style>
-#app {
+#root {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
