@@ -1,12 +1,10 @@
 <template>
-  <div id="root">
-    <div class="hello">
-      <ul v-if="posts && posts.length">
-        <li v-for="post of posts" v-bind:key="post.id">
-          <p><a :href="'/post/' + post.id"><strong>{{post.title}}</strong></a></p>
-        </li>
-      </ul>
-    </div>
+  <div class="hello">
+    <ul v-if="posts && posts.length">
+      <li v-for="post of posts" v-bind:key="post.id">
+        <p><a :href="'/#/post/' + post.id"><strong>{{post.title}}</strong></a></p>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -37,7 +35,7 @@ ul {
   padding: 0;
 }
 li {
-  display: inline-block;
+  display: block;
   margin: 0 10px;
 }
 a {
