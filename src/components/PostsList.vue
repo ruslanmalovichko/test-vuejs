@@ -2,7 +2,7 @@
   <div class="hello">
     <ul v-if="posts && posts.length">
       <li v-for="post of posts" v-bind:key="post.id">
-        <p><a :href="'/#/post/' + post.id"><strong>{{post.title}}</strong></a></p>
+        <p><a :href="'/post/' + post.id"><strong>{{post.title}}</strong></a></p>
       </li>
     </ul>
   </div>
