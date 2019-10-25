@@ -23,10 +23,15 @@ export default {
   },
   methods: {
     fetchData() {
-      axios.get('http://jsonplaceholder.typicode.com/posts/'+this.$route.params.id+'/')
+      axios.get('http://jsonplaceholder.typicode.com/posts/'+this.id+'/')
       .then((resp) => {
         this.post = resp.data
       })
+    }
+  },
+  props: {
+    id: {
+      type: String,
     }
   }
 }
