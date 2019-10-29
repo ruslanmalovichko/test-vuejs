@@ -1,5 +1,12 @@
 <template>
   <div>
+    <div class="vld-parent">
+      <loading :active.sync="isLoading"
+        :can-cancel="false"
+        :on-cancel="onCancel"
+        :is-full-page="fullPage"></loading>
+    </div>
+
     <p>Title: {{ post.title }}</p>
     <p>Body: {{ post.body }}</p>
   </div>
@@ -7,16 +14,23 @@
 
 <script>
 import axios from 'axios'
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   name: 'Post',
   data () {
     return {
-      post: []
+      post: [],
+      isLoading: true,
+      fullPage: true
     }
   },
   mounted() {
     this.fetchData()
+  },
+  components: {
+      Loading
   },
   // created() {
   //   this.fetchData()
@@ -26,11 +40,11 @@ export default {
   // },
   methods: {
     async fetchData() {
-      // you have to swithc on loader HERE
+      // this.isLoading = true;
       try {
         const responce = await axios.get('http://jsonplaceholder.typicode.com/posts/'+this.id+'/');
         this.post = responce.data;
-        // you have to swithc off loader HERE
+        this.isLoading = false
       } catch(err) {
         console.log(err);
       }
@@ -39,6 +53,9 @@ export default {
       // .then((resp) => {
       //   this.post = resp.data
       // })
+    },
+    onCancel() {
+      console.log('User cancelled the loader.')
     }
   },
   props: {
