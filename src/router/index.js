@@ -27,7 +27,6 @@ export default new Router({
       props: true,
       name: 'Post',
       component: Post,
-      meta: { title: 'Post', auth: true, edit: true },
     }
   ]
 })
