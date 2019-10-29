@@ -15,33 +15,30 @@ export default {
       post: []
     }
   },
-  created() {
+  mounted() {
     this.fetchData()
   },
-  watch: {
-    '$route': 'fetchData'
-  },
+  // created() {
+  //   this.fetchData()
+  // },
+  // watch: { // What are you doing here?
+  //   '$route': 'fetchData'
+  // },
   methods: {
-    fetchData() {
-      // function response(id) {
-      //   return new Promise(resolve => {
-      //     resolve(axios.get('http://jsonplaceholder.typicode.com/posts/'+id+'/'));
-      //   });
-      // }
+    async fetchData() {
+      // you have to swithc on loader HERE
+      try {
+        const responce = await axios.get('http://jsonplaceholder.typicode.com/posts/'+this.id+'/');
+        this.post = responce.data;
+        // you have to swithc off loader HERE
+      } catch(err) {
+        console.log(err);
+      }
 
-      // async function postResult(id) {
-      //   const postResult = await response(id);
-      //   return postResult.data;
-      // }
-
-      // this.post = postResult(this.id);
-
-      // console.log(this.post);
-
-      axios.get('http://jsonplaceholder.typicode.com/posts/'+this.id+'/')
-      .then((resp) => {
-        this.post = resp.data
-      })
+      // axios.get('http://jsonplaceholder.typicode.com/posts/'+this.id+'/')
+      // .then((resp) => {
+      //   this.post = resp.data
+      // })
     }
   },
   props: {
