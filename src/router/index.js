@@ -2,6 +2,8 @@ import Vue from 'vue/dist/vue.js';
 import Router from 'vue-router'
 import PostsList from '@/components/PostsList'
 import Post from '@/components/Post'
+import ArticlesList from '@/components/ArticlesList'
+import Article from '@/components/Article'
 import NotFound from '@/components/NotFound'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
@@ -27,6 +29,17 @@ export default new Router({
       props: true,
       name: 'Post',
       component: Post,
+    },
+    {
+      path: '/articles',
+      name: 'ArticlesList',
+      component: ArticlesList
+    },
+    {
+      path: '/article/:id',
+      props: true,
+      name: 'Article',
+      component: Article,
     }
   ]
 })
