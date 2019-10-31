@@ -30,6 +30,11 @@ export default {
   },
   apollo: {
     nodeQuery: {
+      // query: gql`query JwtToken($username: String!, $password: String!) {
+      //   JwtToken(username: $username, password: $password) {
+      //     jwt
+      //   }
+      // }`,
       query: gql`query Article {
         nodeQuery {
           count
@@ -55,6 +60,7 @@ export default {
       }`,
       pollInterval: 0,
       result(result) {
+        // console.log(result);
         var id = this.id;
         result.data.nodeQuery.entities.forEach(function(element) {
           console.log(id);
