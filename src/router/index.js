@@ -5,6 +5,7 @@ import Post from '@/components/Post'
 import ArticlesList from '@/components/ArticlesList'
 import Article from '@/components/Article'
 import NotFound from '@/components/NotFound'
+import AppLogin from '../components/AppLogin'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 
@@ -40,6 +41,10 @@ export default new Router({
       props: true,
       name: 'Article',
       component: Article,
+    },
+    {
+      path: '/login',
+      component: AppLogin
     }
   ]
 })
