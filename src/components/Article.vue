@@ -22,50 +22,72 @@ export default {
     return {
       article: {},
       isLoading: true,
-      fullPage: true
+      fullPage: true,
+      JwtToken: null
     }
   },
   components: {
     Loading
   },
   apollo: {
-    nodeQuery: {
-      query: gql`query Article {
-        nodeQuery {
-          count
-          entities {
-            entityId
-            entityType
-            ... on Node {
-              title
-            }
-            ... on NodeArticle {
-              body {
-                value
-              }
-              fieldImage {
-                title
-                width
-                height
-                url
-              }
-            }
-          }
+    // nodeQuery: {
+    //   query: gql`query Article {
+    //     nodeQuery {
+    //       count
+    //       entities {
+    //         entityId
+    //         entityType
+    //         ... on Node {
+    //           title
+    //         }
+    //         ... on NodeArticle {
+    //           body {
+    //             value
+    //           }
+    //           fieldImage {
+    //             title
+    //             width
+    //             height
+    //             url
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }`,
+    //   pollInterval: 0,
+    //   result(result) {
+    //     var id = this.id;
+    //     result.data.nodeQuery.entities.forEach(function(element) {
+    //       console.log(id);
+    //       if (element.entityId == id) {
+    //         console.log(element);
+    //         console.log(this);
+    //         this.article = element
+    //         this.isLoading = false
+    //       }
+    //     }, this);
+    //     console.log(this.article);
+    //   }
+    // }
+    JwtToken: {
+      query: gql`query JwtToken($username: String!, $password: String!) {
+        JwtToken(username: $username, password: $password) {
+          jwt
         }
       }`,
+      variables: {
+        username: 'admin',
+        password: 'admin',
+      },
       pollInterval: 0,
       result(result) {
-        var id = this.id;
-        result.data.nodeQuery.entities.forEach(function(element) {
-          console.log(id);
-          if (element.entityId == id) {
-            console.log(element);
-            console.log(this);
-            this.article = element
-            this.isLoading = false
-          }
-        }, this);
-        console.log(this.article);
+        console.log(window.jwttoken)
+        console.log(result)
+
+      if (result.data.JwtToken.jwt) {
+          window.jwttoken = result.data.JwtToken?result.data.JwtToken.jwt:null
+        }
+        console.log(window.jwttoken)
       }
     }
   },
