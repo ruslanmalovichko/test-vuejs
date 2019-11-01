@@ -9,11 +9,13 @@ import { ApolloClient } from 'apollo-client'
 import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { setContext } from 'apollo-link-context'
+import Notifications from 'vue-notification'
 
 // Vue.component('loading', Loading)
 // Vue.component('center-container', CenterContainer)
 Vue.config.productionTip = false
 Vue.use(VueApollo)
+Vue.use(Notifications)
 
 var jwttoken = window.jwttoken
 

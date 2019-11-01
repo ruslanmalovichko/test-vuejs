@@ -9,6 +9,8 @@
       <hr/>
       <button type="submit">Login</button>
     </form>
+
+    <notifications group="auth" position="top right" />
   </div>
 </template>
 
@@ -22,13 +24,7 @@
 </style>
 
 <script>
-  // const addItemMutation = gql`
-    // query JwtToken($username: String!, $password: String!) {
-      // JwtToken(username: $username, password: $password) {
-        // jwt
-      // }
-    // }`;
-
+  import gql from 'graphql-tag'
   import {AUTH_REQUEST} from '../../store/actions/auth'
 
   export default {
@@ -40,18 +36,30 @@
       }
     },
     methods: {
-      login: function () {
+      async login() {
         const { username, password } = this
-        // console.log(this);
-        // console.log(this.$apollo);
 
-        // this.$apollo.mutate({
-        //   mutation: addItemMutation,
-        //   variables: { username: username, password: password }
-        // });
-        this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
-          this.$router.push('/')
+        const response = await this.$apollo.query({
+          query: gql`
+          query JwtToken($username: String!, $password: String!) {
+            JwtToken(username: $username, password: $password) {
+              jwt
+            }
+          }`,
+          variables: { username: username, password: password }
         })
+        if (response.data.JwtToken && response.data.JwtToken.jwt) {
+          this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
+            this.$router.push('/')
+            // this.$notify({ group: 'auth', clean: true })
+            // this.$notify({ group: 'auth', type: 'success', text: 'You have been logged in' })
+          })
+        }
+        else {
+          // this.$notify({ group: 'auth', clean: true })
+          // this.$notify({ group: 'auth', type: 'warn', text: 'Wrong password, please try again later', clean: true })
+          this.$notify({ group: 'auth', type: 'error', text: 'Wrong password, please try again later' })
+        }
       }
     },
   }
