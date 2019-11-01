@@ -5,11 +5,30 @@ import Post from '@/components/Post'
 import ArticlesList from '@/components/ArticlesList'
 import Article from '@/components/Article'
 import NotFound from '@/components/NotFound'
+import Login from '@/components/login'
+import Account from '@/components/account'
+import store from '../store'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 
 Vue.use(Buefy)
 Vue.use(Router)
+
+const ifNotAuthenticated = (to, from, next) => {
+  if (!store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/')
+}
+
+const ifAuthenticated = (to, from, next) => {
+  if (store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/login')
+}
 
 export default new Router({
   mode: 'history',
@@ -40,6 +59,18 @@ export default new Router({
       props: true,
       name: 'Article',
       component: Article,
-    }
+    },
+    {
+      path: '/account',
+      name: 'Account',
+      component: Account,
+      beforeEnter: ifAuthenticated,
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+      beforeEnter: ifNotAuthenticated,
+    },
   ]
 })

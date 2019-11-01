@@ -84,6 +84,12 @@ export default {
         console.log(window.jwttoken)
         console.log(result)
 
+        console.log(this.$store.state.count)
+
+        this.$store.commit('increment')
+
+        console.log(this.$store.state.count)
+
       if (result.data.JwtToken.jwt) {
           window.jwttoken = result.data.JwtToken?result.data.JwtToken.jwt:null
         }
