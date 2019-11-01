@@ -1,6 +1,6 @@
 import { USER_REQUEST, USER_ERROR, USER_SUCCESS } from '../actions/user'
-import apiCall from 'utils/api'
-import Vue from 'vue'
+import apiCall from '../../utils/api.js'
+import Vue from 'vue/dist/vue.js'
 import { AUTH_LOGOUT } from '../actions/auth'
 
 const state = { status: '', profile: {} }
@@ -18,6 +18,7 @@ const actions = {
         commit(USER_SUCCESS, resp)
       })
       .catch(resp => {
+        console.log(resp)
         commit(USER_ERROR)
         // if resp is unauthorized, logout, to
         dispatch(AUTH_LOGOUT)

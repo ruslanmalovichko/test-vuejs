@@ -1,7 +1,7 @@
 /* eslint-disable promise/param-names */
 import { AUTH_REQUEST, AUTH_ERROR, AUTH_SUCCESS, AUTH_LOGOUT } from '../actions/auth'
 import { USER_REQUEST } from '../actions/user'
-import apiCall from 'utils/api'
+import apiCall from '../../utils/api.js'
 
 const state = { token: localStorage.getItem('user-token') || '', status: '', hasLoadedOnce: false }
 
@@ -32,7 +32,9 @@ const actions = {
     })
   },
   [AUTH_LOGOUT]: ({commit, dispatch}) => {
+    console.log(dispatch);
     return new Promise((resolve, reject) => {
+      console.log(reject);
       commit(AUTH_LOGOUT)
       localStorage.removeItem('user-token')
       resolve()

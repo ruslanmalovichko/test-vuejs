@@ -1,6 +1,6 @@
 import Vue from 'vue/dist/vue.js'
 import App from './App'
-import store from './store'
+import store from './store/index.js'
 // import Loading from 'components/lib/loading'
 // import CenterContainer from 'components/lib/center-container'
 import router from './router'

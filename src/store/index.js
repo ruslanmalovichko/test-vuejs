@@ -1,7 +1,7 @@
-import Vue from 'vue'
+import Vue from 'vue/dist/vue.js'
 import Vuex from 'vuex'
-import user from './modules/user'
-import auth from './modules/auth'
+import user from '../store/modules/user.js'
+import auth from '../store/modules/auth.js'
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'

@@ -5,7 +5,7 @@
 <template>
   <div>
     <div class="headline">
-      <img src="../../assets/dog-profile.jpeg">
+      <!-- <img src="../../assets/dog-profile.jpeg"> -->
       <h1>Your doge profile</h1>
     </div>
     <p v-if="profile.name">
@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
   .headline{
     margin-top: 1em;
     display: flex;

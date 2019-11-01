@@ -1,4 +1,4 @@
-import Vue from 'vue/dist/vue.js';
+import Vue from 'vue/dist/vue.js'
 import Router from 'vue-router'
 import PostsList from '@/components/PostsList'
 import Post from '@/components/Post'

@@ -1,7 +1,3 @@
-/**
-* Created by vouill on 11/13/17.
-*/
-
 <template>
   <div>
     <form class="login" @submit.prevent="login">
@@ -26,7 +22,7 @@
 </style>
 
 <script>
-  import {AUTH_REQUEST} from 'actions/auth'
+  import {AUTH_REQUEST} from '../../store/actions/auth'
 
   export default {
     name: 'login',
