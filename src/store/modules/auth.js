@@ -14,6 +14,7 @@ const actions = {
   [AUTH_REQUEST]: ({commit, dispatch}, user) => {
     return new Promise((resolve, reject) => {
       commit(AUTH_REQUEST)
+      // apiCall({url: 'auth', data: user, method: 'JwtToken'})
       apiCall({url: 'auth', data: user, method: 'POST'})
       .then(resp => {
         localStorage.setItem('user-token', resp.token)

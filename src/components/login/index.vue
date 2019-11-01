@@ -22,6 +22,13 @@
 </style>
 
 <script>
+  // const addItemMutation = gql`
+    // query JwtToken($username: String!, $password: String!) {
+      // JwtToken(username: $username, password: $password) {
+        // jwt
+      // }
+    // }`;
+
   import {AUTH_REQUEST} from '../../store/actions/auth'
 
   export default {
@@ -35,6 +42,13 @@
     methods: {
       login: function () {
         const { username, password } = this
+        // console.log(this);
+        // console.log(this.$apollo);
+
+        // this.$apollo.mutate({
+        //   mutation: addItemMutation,
+        //   variables: { username: username, password: password }
+        // });
         this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
           this.$router.push('/')
         })
