@@ -50,7 +50,14 @@
         })
         if (response.data.JwtToken && response.data.JwtToken.jwt) {
           localStorage.setItem('user-token', response.data.JwtToken.jwt)
+          // this.$notify({ group: 'auth', type: 'success', text: 'You have been logged in' })
           this.$router.push('/')
+
+          // this.$notify.success('Login successful', 'Success!').on("destroyed", () => this.$router.push('/') )
+
+
+
+
           // this.$store.dispatch(AUTH_REQUEST, response.data.JwtToken.jwt).then(() => {
           //   this.$router.push('/')
           //   // this.$notify({ group: 'auth', clean: true })

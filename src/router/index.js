@@ -5,7 +5,8 @@ import Post from '@/components/Post'
 import ArticlesList from '@/components/ArticlesList'
 import Article from '@/components/Article'
 import NotFound from '@/components/NotFound'
-import Login from '@/components/login'
+import Login from '@/components/Login'
+import Logout from '@/components/Logout'
 import Account from '@/components/account'
 import store from '../store'
 import Buefy from 'buefy'
@@ -71,6 +72,12 @@ export default new Router({
       name: 'Login',
       component: Login,
       beforeEnter: ifNotAuthenticated,
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      component: Logout,
+      beforeEnter: ifAuthenticated,
     },
   ]
 })
