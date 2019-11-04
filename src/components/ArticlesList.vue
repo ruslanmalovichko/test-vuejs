@@ -44,6 +44,7 @@ export default {
       }`,
       pollInterval: 0,
       result(result) {
+        console.log(result);
         this.articles = result.data.nodeQuery
       }
     }

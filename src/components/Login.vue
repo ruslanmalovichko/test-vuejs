@@ -10,7 +10,7 @@
       <button type="submit">Login</button>
     </form>
 
-    <notifications group="auth" position="top right" />
+    <notifications group="auth" position="top left" />
   </div>
 </template>
 
@@ -49,7 +49,13 @@
           variables: { username: username, password: password }
         })
         if (response.data.JwtToken && response.data.JwtToken.jwt) {
-          localStorage.setItem('user-token', response.data.JwtToken.jwt)
+          await localStorage.setItem('user-token', response.data.JwtToken.jwt)
+          console.log('got token: ' + response.data.JwtToken.jwt)
+          console.log(this.$apollo);
+          this.$token = response.data.JwtToken.jwt
+          console.log(this.$token);
+          // console.log(this.$apollo.queries);
+          // this.$apollo.queries.nodeQuery.refresh({})
           // this.$notify({ group: 'auth', type: 'success', text: 'You have been logged in' })
           this.$router.push('/')
 

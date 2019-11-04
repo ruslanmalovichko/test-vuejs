@@ -17,16 +17,24 @@ Vue.config.productionTip = false
 Vue.use(VueApollo)
 Vue.use(Notifications)
 
-var jwttoken = window.jwttoken
+let token = localStorage.getItem('user-token')
+
+Object.defineProperty(Vue.prototype, '$token', {
+  get() { return token },
+  set(value) { token = value },
+})
+
+// var jwttoken = window.jwttoken
 
 // Create a new Middleware Link using setContext
-const middlewareLink = setContext(() => {
-  if (jwttoken) return {
-    headers: {
-       authorization: `Bearer ${jwttoken}`
+  var middlewareLink = setContext(() => {
+    console.log('token:' + token)
+    return {
+      headers: {
+        authorization: token ? `Bearer ${token}` : ''
+      }
     }
-  }
-})
+  })
 
 // HTTP connection to the API
 const httpLink = createHttpLink({

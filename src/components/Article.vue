@@ -9,6 +9,7 @@
 
     <p v-if="article && article.title">Title: <span v-html="article.title"></span></p>
     <p v-if="article && article.body && article.body.value">Body: <span v-html="article.body.value"></span></p>
+    <notifications group="auth" position="top left" />
   </div>
 </template>
 
@@ -30,70 +31,47 @@ export default {
     Loading
   },
   apollo: {
-    // nodeQuery: {
-    //   query: gql`query Article {
-    //     nodeQuery {
-    //       count
-    //       entities {
-    //         entityId
-    //         entityType
-    //         ... on Node {
-    //           title
-    //         }
-    //         ... on NodeArticle {
-    //           body {
-    //             value
-    //           }
-    //           fieldImage {
-    //             title
-    //             width
-    //             height
-    //             url
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }`,
-    //   pollInterval: 0,
-    //   result(result) {
-    //     var id = this.id;
-    //     result.data.nodeQuery.entities.forEach(function(element) {
-    //       console.log(id);
-    //       if (element.entityId == id) {
-    //         console.log(element);
-    //         console.log(this);
-    //         this.article = element
-    //         this.isLoading = false
-    //       }
-    //     }, this);
-    //     console.log(this.article);
-    //   }
-    // }
-    JwtToken: {
-      query: gql`query JwtToken($username: String!, $password: String!) {
-        JwtToken(username: $username, password: $password) {
-          jwt
+    nodeQuery: {
+      query: gql`query Article {
+        nodeQuery {
+          count
+          entities {
+            entityId
+            entityType
+            ... on Node {
+              title
+            }
+            ... on NodeArticle {
+              body {
+                value
+              }
+              fieldImage {
+                title
+                width
+                height
+                url
+              }
+            }
+          }
         }
       }`,
-      variables: {
-        username: 'admin',
-        password: 'admin',
-      },
       pollInterval: 0,
       result(result) {
-        console.log(window.jwttoken)
-        console.log(result)
-
-        console.log(this.$store.state.count)
-
-        this.$store.commit('increment')
-
-        console.log(this.$store.state.count)
-
-      if (result.data.JwtToken.jwt) {
-          window.jwttoken = result.data.JwtToken?result.data.JwtToken.jwt:null
+        var id = this.id;
+        if (result.data.nodeQuery.entities.length) {
+          result.data.nodeQuery.entities.forEach(function(element) {
+            console.log(id);
+            if (element.entityId == id) {
+              console.log(element);
+              console.log(this);
+              this.article = element
+              this.isLoading = false
+            }
+          }, this);
         }
-        console.log(window.jwttoken)
+        else {
+          this.isLoading = false
+        }
       }
     }
   },
@@ -106,6 +84,11 @@ export default {
     onCancel() {
       console.log('User cancelled the loader.')
     }
+  },
+  mounted(){
+    console.log('mounted')
+    console.log(this.$apollo.queries.nodeQuery)
+    this.$apollo.queries.nodeQuery.refresh({})
   }
 }
 </script>

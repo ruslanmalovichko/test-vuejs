@@ -1,6 +1,6 @@
 import Vue from 'vue/dist/vue.js'
 import Router from 'vue-router'
-import PostsList from '@/components/PostsList'
+// import PostsList from '@/components/PostsList'
 import Post from '@/components/Post'
 import ArticlesList from '@/components/ArticlesList'
 import Article from '@/components/Article'
@@ -8,7 +8,7 @@ import NotFound from '@/components/NotFound'
 import Login from '@/components/Login'
 import Logout from '@/components/Logout'
 import Account from '@/components/account'
-import store from '../store'
+// import store from '../store'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 
@@ -16,7 +16,8 @@ Vue.use(Buefy)
 Vue.use(Router)
 
 const ifNotAuthenticated = (to, from, next) => {
-  if (!store.getters.isAuthenticated) {
+  console.log(localStorage.getItem('user-token'));
+  if (!localStorage.getItem('user-token')) {
     next()
     return
   }
@@ -24,7 +25,8 @@ const ifNotAuthenticated = (to, from, next) => {
 }
 
 const ifAuthenticated = (to, from, next) => {
-  if (store.getters.isAuthenticated) {
+  console.log(localStorage.getItem('user-token'));
+  if (localStorage.getItem('user-token')) {
     next()
     return
   }
@@ -39,11 +41,11 @@ export default new Router({
       name: 'NotFound',
       component: NotFound
     },
-    {
-      path: '/',
-      name: 'PostsList',
-      component: PostsList
-    },
+    // {
+    //   path: '/',
+    //   name: 'PostsList',
+    //   component: PostsList
+    // },
     {
       path: '/post/:id',
       props: true,
@@ -51,7 +53,8 @@ export default new Router({
       component: Post,
     },
     {
-      path: '/articles',
+      // path: '/articles',
+      path: '/',
       name: 'ArticlesList',
       component: ArticlesList
     },
