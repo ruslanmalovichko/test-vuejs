@@ -19,8 +19,10 @@ export default {
       articles: []
     }
   },
-  apollo: {
-    nodeQuery: {
+  async mounted(){
+    console.log('mounted')
+    console.log(this.$apollo.queries.nodeQuery)
+    const response = await this.$apollo.query({
       query: gql`query Articles {
         nodeQuery {
           count
@@ -41,13 +43,39 @@ export default {
             }
           }
         }
-      }`,
-      pollInterval: 0,
-      result(result) {
-        console.log(result);
-        this.articles = result.data.nodeQuery
-      }
-    }
+      }`
+    })
+
+    this.articles = response.data.nodeQuery
+    console.log(this.articles);
+    console.log(this);
+    // if (response.data.JwtToken && response.data.JwtToken.jwt) {
+    //   await localStorage.setItem('user-token', response.data.JwtToken.jwt)
+    //   console.log('got token: ' + response.data.JwtToken.jwt)
+    //   console.log(this.$apollo);
+    //   this.$token = response.data.JwtToken.jwt
+    //   console.log(this.$token);
+    //   // console.log(this.$apollo.queries);
+    //   // this.$apollo.queries.nodeQuery.refresh({})
+    //   // this.$notify({ group: 'auth', type: 'success', text: 'You have been logged in' })
+    //   this.$router.push('/')
+
+    //   // this.$notify.success('Login successful', 'Success!').on("destroyed", () => this.$router.push('/') )
+
+
+
+
+    //   // this.$store.dispatch(AUTH_REQUEST, response.data.JwtToken.jwt).then(() => {
+    //   //   this.$router.push('/')
+    //   //   // this.$notify({ group: 'auth', clean: true })
+    //   //   // this.$notify({ group: 'auth', type: 'success', text: 'You have been logged in' })
+    //   // })
+    // }
+    // else {
+    //   // this.$notify({ group: 'auth', clean: true })
+    //   // this.$notify({ group: 'auth', type: 'warn', text: 'Wrong password, please try again later', clean: true })
+    //   this.$notify({ group: 'auth', type: 'error', text: 'Wrong password, please try again later' })
+    // }
   }
 }
 </script>
