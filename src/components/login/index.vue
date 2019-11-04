@@ -25,7 +25,7 @@
 
 <script>
   import gql from 'graphql-tag'
-  import {AUTH_REQUEST} from '../../store/actions/auth'
+  // import {AUTH_REQUEST} from '../../store/actions/auth'
 
   export default {
     name: 'login',
@@ -49,11 +49,13 @@
           variables: { username: username, password: password }
         })
         if (response.data.JwtToken && response.data.JwtToken.jwt) {
-          this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
-            this.$router.push('/')
-            // this.$notify({ group: 'auth', clean: true })
-            // this.$notify({ group: 'auth', type: 'success', text: 'You have been logged in' })
-          })
+          localStorage.setItem('user-token', response.data.JwtToken.jwt)
+          this.$router.push('/')
+          // this.$store.dispatch(AUTH_REQUEST, response.data.JwtToken.jwt).then(() => {
+          //   this.$router.push('/')
+          //   // this.$notify({ group: 'auth', clean: true })
+          //   // this.$notify({ group: 'auth', type: 'success', text: 'You have been logged in' })
+          // })
         }
         else {
           // this.$notify({ group: 'auth', clean: true })
