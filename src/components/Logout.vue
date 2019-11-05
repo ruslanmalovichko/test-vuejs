@@ -6,9 +6,10 @@
 
 <script>
 export default {
-  beforeCreate() {
+  async beforeCreate() {
   // mount() {
-    localStorage.removeItem('user-token')
+    await localStorage.removeItem('user-token')
+    await this.$apolloProvider.defaultClient.resetStore()
 
 
 
