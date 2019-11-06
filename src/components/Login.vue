@@ -96,6 +96,18 @@
         // this.isLoading = true;
         try {
 
+          // const login_responce = await axios.post('http://drupal-8-graphql/user/login?_format=json', qs.stringify({
+          //   'name': username,
+          //   'pass': password,
+          // }))
+
+          // const login_responce = await axios.post('http://drupal-8-graphql/user/login?_format=json', {
+          //   'name': username,
+          //   'pass': password,
+          // })
+
+          // console.log(login_responce);
+
 
           const responce = await axios.post('http://drupal-8-graphql/oauth/token', qs.stringify({
             'grant_type': 'password',
